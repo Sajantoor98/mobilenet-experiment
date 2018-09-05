@@ -41,5 +41,5 @@ function setup() {
 
 function draw() {
   background(0);
-  image(video, 0, 0, windowWidth, windowHeight);
+  image(video, 0, 0);
 }
