@@ -1,7 +1,7 @@
 let mobilenet;
 let video;
-let prob = "";
-let label = "";
+var prob = document.getElementById('prob');
+var label = document.getElementById('label');
 
 function modelReady() {
   console.log('Model is ready!');
@@ -12,14 +12,17 @@ function gotResults(error, results) {
   if (error) {
     console.error(error);
   } else {
-    label = results[0].className;
-    prob = results[0].probability;
+    label.innerHTML = results[0].className;
+    prob.innerHTML = "probability: " + Math.round(results[0].probability * 100) + "%";
 
-    textSize(34);
-    fill(255);
-    text(label, 10, height - 10)
-    text(Math.round(prob * 100), width - 60, height - 10);
-    mobilenet.predict(gotResults);
+    // textSize(34);
+    // fill(255);
+    // text(label, 10, height - 10)
+    // text(Math.round(prob * 100), width - 60, height - 10);
+    setTimeout(function() {
+      mobilenet.predict(gotResults);
+    }, 1000)
+
   }
 }
 
