@@ -14,11 +14,6 @@ function gotResults(error, results) {
   } else {
     label.innerHTML = results[0].className;
     prob.innerHTML = "probability: " + Math.round(results[0].probability * 100) + "%";
-
-    // textSize(34);
-    // fill(255);
-    // text(label, 10, height - 10)
-    // text(Math.round(prob * 100), width - 60, height - 10);
     setTimeout(function() {
       mobilenet.predict(gotResults);
     }, 1000)
@@ -29,7 +24,16 @@ function gotResults(error, results) {
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
-  video = createCapture(VIDEO, 0, 0, windowWidth, windowHeight - 20);
+
+  var paras = {
+     audio: false,
+     video: {
+       facingMode: "environment"
+     }
+   };
+
+  video = createCapture(paras);
+  video.hide();
   video.hide();
   mobilenet = ml5.imageClassifier('MobileNet', video, modelReady);
 }
@@ -37,5 +41,5 @@ function setup() {
 
 function draw() {
   background(0);
-  image(video, 0, 0);
+  image(video, 0, 0, windowWidth, windowHeight);
 }
